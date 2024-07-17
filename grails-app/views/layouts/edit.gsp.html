@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Product</title>
+</head>
+<body>
+<h1>Edit Product</h1>
+<g:form controller="product" action="update" id="${product.id}">
+    <label for="coverLetter">Cover Letter:</label>
+    <g:textField name="coverLetter" value="${product?.coverLetter}"/>
+    <br/>
+    <label for="title">Title:</label>
+    <g:textField name="title" value="${product?.title}"/>
+    <br/>
+    <label for="price">Price:</label>
+    <g:decimalField name="price" value="${product?.price}"/>
+    <br/>
+    <label for="dateOfAppointment">Date of Appointment:</label>
+    <g:datePicker name="dateOfAppointment" value="${product?.dateOfAppointment}"/>
+    <br/>
+    <label for="expirationDate">Expiration Date:</label>
+    <g:datePicker name="expirationDate" value="${product?.expirationDate}"/>
+    <br/>
+    <g:submitButton name="update" value="Update"/>
+</g:form>
+<a href="${createLink(controller: 'product', action: 'index')}">Back to List</a>
+</body>
+</html>
