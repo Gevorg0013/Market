@@ -2,6 +2,7 @@
 
 package storeapp
 import grails.gorm.transactions.Transactional
+import java.time.LocalDate
 
 import storeapp.Warehouse
 import storeapp.Product
@@ -59,6 +60,7 @@ class WarehouseController {
             println("save013: " + save);
             if (save) {
                 println("WarehouseProduct saved successfully with ID: ${warehouseProduct.id}")
+                redirect(action: 'showWarehouseProduct', params: [warehouseProductId: warehouseProduct.id])
             } else {
                 println("Failed to save WarehouseProduct. Errors: ${warehouseProduct.errors}")
             }
@@ -103,5 +105,19 @@ class WarehouseController {
 
     def delete(Long id) {
         // Implementation for deleting warehouses if needed
+    }
+
+    def showWarehouseProduct(Long warehouseProductId) {
+        def warehouseProduct = WarehouseProduct.get(warehouseProductId)
+        if (!warehouseProduct) {
+            log.error("WarehouseProduct not found for ID: $warehouseProductId")
+            render(view: "/warehouse/error")
+            return
+        }
+
+        // Pass all products in the warehouse to the view
+        def warehouseProducts = WarehouseProduct.findAllByWarehouse(warehouseProduct.warehouse)
+
+        [warehouseProduct: warehouseProduct, warehouseProducts: warehouseProducts]
     }
 }
