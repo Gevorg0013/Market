@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Warehouse List</title>
+    <title>Warehouse Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -39,44 +39,29 @@
 </head>
 <body>
     <div class="container">
-        <div class="header-container">
-            <h1 class="mt-3 mb-4">Warehouse List</h1>
-            <g:link class="btn btn-primary btn-create" action="create">Create New Warehouse</g:link>
-        </div>
 
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Code</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Products</th>
-                    <th scope="col" class="actions-column text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <g:each var="warehouse" in="${warehouses}">
-                    <tr>
-                        <td>${warehouse.code}</td>
-                        <td>${warehouse.name}</td>
-                        <td>
-                            <ul>
-                                <g:each var="product" in="${warehouse.products}">
-                                    <li>${product.name} - Quantity: ${product.quantity}</li>
-                                </g:each>
-                            </ul>
-                        </td>
-                        <td class="actions-column text-center">
-                            <g:link class="btn btn-sm btn-primary btn-action" action="edit" id="${warehouse.id}">Edit</g:link>
-                            <g:form action="delete/${warehouse.id}" method="post" class="d-inline">
-                                <g:submitButton class="btn btn-sm btn-danger btn-action" name="Delete"/>
-                            </g:form>
-                        </td>
-                    </tr>
-                </g:each>
-            </tbody>
+
         </table>
+
+        <!-- Form to add product -->
+        <g:form action="addProduct" method="post">
+            <div class="form-group">
+                <label for="productId">Product:</label>
+                <select id="productId" name="productId" class="custom-select">
+                    <option value="">Select Product</option>
+                    <g:each var="product" in="${availableProducts}">
+                        <option value="${product.id}">${product.productName}</option>
+                    </g:each>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success btn-action">Add Product</button>
+        </g:form>
     </div>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>
+</

@@ -8,6 +8,7 @@ class ProductController {
 
     def index() {
         def products = Product.list()
+
         render(view: "index", model: [products: products])
     }
 

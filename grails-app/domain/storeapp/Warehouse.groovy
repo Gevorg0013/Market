@@ -1,7 +1,5 @@
 package storeapp
 
-import storeapp.WarehouseProduct
-
 class Warehouse {
     String code
     String name

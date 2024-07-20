@@ -59,7 +59,7 @@
             <g:each in="${products}" var="product">
                 <tr>
                     <td>${product.coverLetter}</td>
-                    <td>${product.title}</td>
+                    <td>${product.productName}</td>
                     <td>${product.price}</td>
                     <td>${product.dateOfAppointment}</td>
                     <td>${product.expirationDate ?: 'N/A'}</td>
@@ -72,5 +72,12 @@
         </tbody>
     </table>
     <a href="${createLink(controller: 'product', action: 'create')}" class="add-product">Ավելացնել նոր ապրանք</a>
+
+    <div class="header-container">
+        <h1>Products</h1>
+        <a href="${createLink(controller: 'warehouse', action: 'index')}">
+            <button type="button" class="btn btn-primary">Go to Warehouse</button>
+        </a>
+    </div>
 </body>
 </html>
