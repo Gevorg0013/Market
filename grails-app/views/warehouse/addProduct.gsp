@@ -1,5 +1,3 @@
-<!-- grails-app/views/storeapp/warehouse/addProduct.gsp -->
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -10,7 +8,7 @@
 
 <g:form action="addToWarehouse/${warehouse?.id}">
     <label for="productId">Product:</label>
-    <g:select name="productId" from="${Product.list()}" optionKey="id" optionValue="name" required="true"/><br/>
+    <g:select name="productId" from="${availableProducts}" optionKey="id" optionValue="name" required="true"/><br/>
 
     <label for="quantity">Quantity:</label>
     <g:textField name="quantity" required="true"/><br/>

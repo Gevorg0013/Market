@@ -35,13 +35,40 @@
             align-items: center;
             margin-bottom: 20px;
         }
+        .warehouse-section {
+            margin-bottom: 20px;
+        }
+        .warehouse-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .product-item {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="header-container">
+            <h1>Warehouses and Products</h1>
+            <a href="#" class="btn btn-primary btn-create">Create Warehouse</a>
+        </div>
 
-
-        </table>
+        <div class="warehouse-section">
+            <g:each var="warehouse" in="${warehouses}">
+                <div class="warehouse-title">${warehouse.name}</div>
+                <ul class="product-list">
+                    <g:each var="wp" in="${warehouseProducts.findAll { it.warehouse == warehouse }}">
+                        <li class="product-item">${wp.product.productName}</li>
+                    </g:each>
+                </ul>
+            </g:each>
+        </div>
 
         <!-- Form to add product -->
         <g:form action="addProduct" method="post">
@@ -49,9 +76,11 @@
                 <label for="productId">Product:</label>
                 <select id="productId" name="productId" class="custom-select">
                     <option value="">Select Product</option>
+                    <g:if test="${availableProducts}">
                     <g:each var="product" in="${availableProducts}">
                         <option value="${product.id}">${product.productName}</option>
                     </g:each>
+                    </g:if>
                 </select>
             </div>
             <div class="form-group">
@@ -64,4 +93,4 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</
+</html>

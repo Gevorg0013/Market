@@ -4,6 +4,11 @@ grails:
     codegen:
         defaultPackage: storeapp
     gorm:
+        transactions:
+            readOnly: false     # Default is false, set to true for read-only transactions
+            timeout: -1         # Default is -1 (no timeout), specify timeout in seconds
+            isolation: 'DEFAULT' # Default isolation level, options: DEFAULT, READ_UNCOMMITTED, READ_COMMITTED, REPEATABLE_READ, SERIALIZABLE
+            propagationBehavior: 'REQUIRED' # Default propagation behavior, options: REQUIRED, REQUIRES_NEW, SUPPORTS, MANDATORY, NEVER, NOT_SUPPORTED
         reactor:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons

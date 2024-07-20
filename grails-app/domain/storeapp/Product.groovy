@@ -3,6 +3,7 @@ package storeapp
 import java.time.LocalDate
 
 class Product {
+
     String coverLetter
     String productName
     BigDecimal price

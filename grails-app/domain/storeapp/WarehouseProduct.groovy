@@ -6,15 +6,11 @@ import storeapp.Warehouse
 class WarehouseProduct {
     Warehouse warehouse
     Product product
-    Integer quantity
+
+    static belongsTo = [warehouse: Warehouse, product: Product]
 
     static constraints = {
-        quantity nullable: false, min: 0
-    }
-
-
-    static mapping = {
-        warehouse cascade: "all"
-        product cascade: "all"
+        warehouse nullable: false
+        product nullable: false
     }
 }

@@ -1,11 +1,12 @@
 // grails-app/controllers/storeapp/WarehouseController.groovy
 
 package storeapp
+import grails.gorm.transactions.Transactional
 
 import storeapp.Warehouse
 import storeapp.Product
 import storeapp.WarehouseProduct
-import org.springframework.transaction.annotation.Transactional
+//import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 class WarehouseController {
@@ -15,80 +16,62 @@ class WarehouseController {
     def warehouseService
 
     def index() {
-        // Retrieve all warehouses
         def warehouses = Warehouse.list()
-
-        // Check if there are any warehouses available
         def warehouse = warehouses.isEmpty() ? null : warehouses.first()
-
-        // Fetch available products for adding to warehouse
         def availableProducts = Product.list()
-
-        // Prepare model for rendering
         [warehouse: warehouse, availableProducts: availableProducts]
     }
 
 
+
     @Transactional
     def addProduct() {
-        // Validate required parameters
-        if (!params.productId || !params.quantity) {
-            log.error("Missing productId or quantity")
-            render(view: "error") // Render an error view or handle appropriately
-            return
-        }
+        try {
+            // Validate required parameters
+            if (!params.productId || !params.quantity.toInteger() || params.quantity.toInteger() <= 0) {
+                log.error("Missing or invalid productId or quantity")
+                render(view: "/warehouse/error") // Handle error appropriately
+                return
+            }
 
-        // Retrieve product from params
-        def product = Product.get(params.productId as Long)
+            // Retrieve product from params or create a new one
+            def product = Product.get(params.productId as Long)
+            if (!product) {
+                product = new Product(
+                        coverLetter: params.coverLetter ?: '', // Default to empty string if not provided
+                        productName: params.productName ?: '',
+                        price: params.price ? params.price.toBigDecimal() : BigDecimal.ZERO, // Default to zero if not provided
+                        dateOfAppointment: LocalDate.parse(params.dateOfAppointment),
+                        expirationDate: params.expirationDate ? LocalDate.parse(params.expirationDate) : null
+                )
+            }
 
-        // Validate product existence
-        if (!product) {
-            log.error("Product with id ${params.productId} not found")
-            render(view: "error") // Render an error view or handle appropriately
-            return
-        }
-
-        // Retrieve list of warehouses
-        def warehouses = Warehouse.list()
-
-        // Check if warehouses list is empty
-        def warehouse = warehouses.isEmpty() ? createDefaultWarehouse() : warehouses.first()
-
-        // Ensure both warehouse and product are saved
-        if (isTransient(warehouse)) {
-            warehouse.save(flush: true)
-        }
-        if (isTransient(product)) {
+            // Save product
             product.save(flush: true)
+
+            // Create and save warehouse (if needed)
+            def warehouse = Warehouse.findByName('Main Warehouse') ?: new Warehouse(code: '1',name: 'Main Warehouse')
+            warehouse.save(flush: true)
+
+            // Create and save warehouse product
+            def warehouseProduct = new WarehouseProduct(warehouse: warehouse, product: product)
+            def save = warehouseProduct.save(flush: true)
+            println("save013: " + save);
+            if (save) {
+                println("WarehouseProduct saved successfully with ID: ${warehouseProduct.id}")
+            } else {
+                println("Failed to save WarehouseProduct. Errors: ${warehouseProduct.errors}")
+            }
+        } catch (Exception e) {
+            log.error("Error adding product: ${e.message}", e)
+            render(view: "/warehouse/error")
+            // Optionally re-throw or handle the exception as needed
         }
-
-        // Now that both warehouse and product are saved, create or update the warehouse product entry
-        def warehouseProduct = WarehouseProduct.findByWarehouseAndProduct(warehouse, product)
-        if (!warehouseProduct) {
-            warehouseProduct = new WarehouseProduct(warehouse: warehouse, product: product, quantity: params.quantity.toInteger())
-        } else {
-            warehouseProduct.quantity += params.quantity.toInteger()
-        }
-
-        warehouseProduct.save(flush: true)
-
-        // Redirect back to the index page or handle success as needed
-        redirect(action: "index")
     }
 
-    def isTransient(entity) {
-        // Check if the entity is transient (not saved to the database)
-        entity.id == null
-    }
 
-    def createDefaultWarehouse() {
-        // Create a new warehouse if none exist
-        Warehouse warehouse = new Warehouse(name: "Default Warehouse")
-        warehouse.save(flush: true)
 
-        log.info("Created a new warehouse: ${warehouse.name}")
-        return warehouse
-    }
+
 
     def removeProductFromWarehouse(Long warehouseProductId) {
         def warehouseProduct = WarehouseProduct.get(warehouseProductId)
