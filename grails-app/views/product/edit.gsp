@@ -73,8 +73,8 @@
         <label for="coverLetter">Ծածկագիր:</label>
         <g:textField name="coverLetter" value="${product?.coverLetter}"/>
 
-        <label for="title">Ապրանքի անվաում:</label>
-        <g:textField name="title" value="${product?.title}"/>
+        <label for="productName">Ապրանքի անվաում:</label>
+        <g:textField name="productName" value="${product?.productName}"/>
 
         <label for="price">Ապրանքի գին:</label>
         <g:textField name="price" value="${product?.price}"/>

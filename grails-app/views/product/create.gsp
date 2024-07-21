@@ -20,20 +20,20 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         label {
-            margin-bottom: 10px; /* Space below each label */
-            display: block; /* Each label on a new line */
+            margin-bottom: 10px;
+            display: block;
             color: #555;
         }
         input[type="text"], input[type="date"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px; /* Space below each input */
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
         .date-label {
-            margin-top: 20px; /* Space before date labels */
+            margin-top: 20px;
         }
         g\:submitButton {
             background-color: #5cb85c;
@@ -81,11 +81,12 @@
             <g:datePicker name="dateOfAppointment" value="${product?.dateOfAppointment}"/>
         </div>
 
-        <div class="date-label">
-            <label for="expirationDate">ապրանքի վերջնաժամկետ:</label>
-            <g:datePicker name="expirationDate" value="${product?.expirationDate}"/>
-        </div>
-
+      <div class="date-label">
+                 <label for="expirationDate">ապրանքի վերջնաժամկետ:</label>
+                 <g:datePicker name="expirationDate" value="${product?.expirationDate ?: ''}"/>
+                 <input type="checkbox" id="noExpirationDate" name="noExpirationDate" value="true">
+                 <label for="noExpirationDate">Չկան վերջնաժամկետ</label>
+             </div>
         <g:submitButton name="create" value="Պահպանել"/>
     </g:form>
 

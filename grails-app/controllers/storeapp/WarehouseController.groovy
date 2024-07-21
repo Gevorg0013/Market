@@ -60,7 +60,7 @@ class WarehouseController {
             println("save013: " + save);
             if (save) {
                 println("WarehouseProduct saved successfully with ID: ${warehouseProduct.id}")
-                redirect(action: 'showWarehouseProduct', params: [warehouseProductId: warehouseProduct.id])
+                redirect(action: 'showWarehouseProduct')
             } else {
                 println("Failed to save WarehouseProduct. Errors: ${warehouseProduct.errors}")
             }
@@ -107,17 +107,21 @@ class WarehouseController {
         // Implementation for deleting warehouses if needed
     }
 
-    def showWarehouseProduct(Long warehouseProductId) {
-        def warehouseProduct = WarehouseProduct.get(warehouseProductId)
+    def showWarehouseProduct() {
+        // Example: Fetching the first warehouse product (you might need additional logic here)
+        def warehouseProduct = WarehouseProduct.first()
+
         if (!warehouseProduct) {
-            log.error("WarehouseProduct not found for ID: $warehouseProductId")
+            log.error("No warehouse products found")
             render(view: "/warehouse/error")
             return
         }
 
-        // Pass all products in the warehouse to the view
+        // Fetch all products in the warehouse associated with this warehouse product
         def warehouseProducts = WarehouseProduct.findAllByWarehouse(warehouseProduct.warehouse)
 
+        // Return the warehouse product and associated products to the view
         [warehouseProduct: warehouseProduct, warehouseProducts: warehouseProducts]
     }
+
 }

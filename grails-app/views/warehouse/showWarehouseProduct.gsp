@@ -62,47 +62,49 @@
     <div class="container">
         <h1>Warehouse Product Details</h1>
 
-        <!-- Display details of the selected warehouse product -->
-
-
-        <hr>
-
         <!-- Display all products in the warehouse -->
         <h2>Բոլոր ապրանքերը "${warehouseProduct.warehouse.name}" պահեստի</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Ապրանքի կոդ</th>
-                    <th>անուն</th>
-                    <th>գին</th>
-                    <th>արտադրվել է</th>
-                    <th>վավեր է</th>
-                    <!-- Add more headers as needed -->
-                </tr>
-            </thead>
-            <tbody>
-                <g:each var="wp" in="${warehouseProducts}">
-                    <tr>
-                        <td>${wp.product.id}</td>
-                        <td>${wp.product.productName}</td>
-                        <td>${wp.product.price}</td>
-                        <td>${wp.product.dateOfAppointment}</td>
-                        <td>${wp.product.expirationDate}</td>
-                        <!-- Add more columns with product details -->
-                    </tr>
-                </g:each>
-            </tbody>
-        </table>
+       <table>
+           <thead>
+               <tr>
+                   <th>Ապրանքի կոդ</th>
+                   <th>անուն</th>
+                   <th>գին</th>
+                   <th>արտադրվել է</th>
+                   <th>վավեր է</th>
+                   <th>հեռացնելա</th>
+               </tr>
+           </thead>
+           <tbody>
+               <!-- Iterate over each warehouse product -->
+               <g:each var="wp" in="${warehouseProducts}">
+                   <tr>
+                       <td>${wp.product.id}</td>
+                       <td>${wp.product.productName}</td>
+                       <td>${wp.product.price}</td>
+                       <td>${wp.product.dateOfAppointment}</td>
+                       <td>${wp.product.expirationDate}</td>
+                       <td>
+                           <!-- Form to delete warehouse product -->
+                           <form action="${createLink(action: 'removeProductFromWarehouse', params: [warehouseProductId: wp.id])}" method="post">
+                               <button type="submit">Ջնջել</button>
+                           </form>
+                       </td>
+                   </tr>
+               </g:each>
+           </tbody>
+       </table>
 
         <!-- Link to go back to the main warehouse index -->
         <div class="back-link">
-            <a href="http://localhost:8080/warehouse/index">Ավելացնել ապրանք</a>
+            <a href="${createLink(uri: '/warehouse/index')}">Ավելացնել ապրանք</a>
         </div>
 
         <!-- Link to go to the product list page -->
          <div class="back-link">
-                <a href="http://localhost:8080/product/index">Ապրանքների ցանկ</a>
+                <a href="${createLink(uri: '/product/index')}">Ապրանքների ցանկ</a>
             </div>
+
     </div>
 </body>
 </html>

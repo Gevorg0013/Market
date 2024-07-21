@@ -18,6 +18,14 @@ class ProductController {
 
     def save() {
         def product = new Product(params)
+
+        // Check if expiration date is empty or null
+        if (params.noExpirationDate == 'true') {
+            product.expirationDate = null // Set expirationDate to null for no expiration
+        } else if (!params.expirationDate) {
+            product.expirationDate = null // Ensure expirationDate is null if not provided
+        }
+
         if (product.save(flush: true)) {
             redirect action: "index"
         } else {
