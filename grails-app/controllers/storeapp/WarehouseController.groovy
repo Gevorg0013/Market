@@ -83,7 +83,7 @@ class WarehouseController {
             warehouseProduct.delete()
             flash.message = "Product removed from warehouse."
         }
-        redirect(action: 'index')
+        redirect(action: 'showWarehouseProduct')
     }
 
     def create() {
@@ -113,7 +113,7 @@ class WarehouseController {
 
         if (!warehouseProduct) {
             log.error("No warehouse products found")
-            render(view: "/warehouse/error")
+            render(view: "/warehouse/emptyWarehouseError")
             return
         }
 
