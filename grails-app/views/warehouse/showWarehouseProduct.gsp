@@ -72,6 +72,7 @@
                    <th>գին</th>
                    <th>արտադրվել է</th>
                    <th>վավեր է</th>
+                   <th>քանակ</th> <!-- Added quantity column header -->
                    <th>հեռացնելա</th>
                </tr>
            </thead>
@@ -84,6 +85,7 @@
                        <td>${wp.product.price}</td>
                        <td>${wp.product.dateOfAppointment}</td>
                        <td>${wp.product.expirationDate}</td>
+                       <td>${wp.quantity}</td> <!-- Display quantity -->
                        <td>
                            <!-- Form to delete warehouse product -->
                            <form action="${createLink(action: 'removeProductFromWarehouse', params: [warehouseProductId: wp.id])}" method="post">

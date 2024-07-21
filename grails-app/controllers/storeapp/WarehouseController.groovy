@@ -56,6 +56,7 @@ class WarehouseController {
 
             // Create and save warehouse product
             def warehouseProduct = new WarehouseProduct(warehouse: warehouse, product: product)
+            warehouseProduct.quantity += params.quantity.toInteger()  // Increase quantity
             def save = warehouseProduct.save(flush: true)
             println("save013: " + save);
             if (save) {
