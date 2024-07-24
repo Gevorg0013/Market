@@ -37,4 +37,4 @@ If expiration date is greater than this date we cant sale product, and move it t
 Below you can see phots and demo video
 
 1) H2 db where we save product and because we don't mention expiration date it's empty
-![2](https://github.com/user-attachments/assets/c5f0b978-e2a3-449f-aaee-b7f3189ec876)
+![H2](https://github.com/user-attachments/assets/209a8bc3-b525-4345-960d-b61595ca1846)
