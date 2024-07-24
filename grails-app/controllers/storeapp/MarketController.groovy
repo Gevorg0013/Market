@@ -15,6 +15,7 @@ class MarketController {
         def warehouseProducts = WarehouseProduct.list()
         [warehouseProducts: warehouseProducts]
     }
+
     def addProduct(Long warehouseProductId) {
         def warehouseProduct = WarehouseProduct.get(warehouseProductId)
         if (!warehouseProduct) {
@@ -43,7 +44,7 @@ class MarketController {
     def removeProduct(Long marketProductId) {
         if (!marketProductId) {
             flash.error = "Invalid request: marketProductId is null."
-            println"Invalid request: marketProductId is null."
+            println "Invalid request: marketProductId is null."
             redirect(action: 'view')
             return
         }
@@ -62,7 +63,6 @@ class MarketController {
         flash.message = "Market product successfully removed."
         redirect(action: 'view')
     }
-
 
 
 }

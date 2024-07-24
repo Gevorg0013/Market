@@ -68,7 +68,7 @@
     <body>
         <div class="container">
             <div class="header-container">
-                <h1>Warehouses and Products</h1>
+                <h1>Պահեստներ եվ ապրանքներ</h1>
             </div>
 
             <div class="warehouse-section">
@@ -91,11 +91,11 @@
             <!-- Form to add product -->
             <g:if test="${!addedProduct}">
                 <div class="card">
-                    <h5 class="card-header">Add Product</h5>
+                    <h5 class="card-header">Ընտրել ապրանքը եվ քանակը</h5>
                     <div class="card-body">
                         <g:form action="addProduct" method="post">
                             <div class="form-group">
-                                <label for="productId">Product:</label>
+                                <label for="productId">Ապրանքի տեսակ:</label>
                                 <select id="productId" name="productId" class="custom-select">
                                     <option value="">Select Product</option>
                                     <g:if test="${availableProducts}">
@@ -106,10 +106,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="quantity">Quantity:</label>
+                                <label for="quantity">Քանակ:</label>
                                 <input type="number" id="quantity" name="quantity" min="1" value="1" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-success btn-action">Add Product in wareHouse</button>
+                            <button type="submit" class="btn btn-success btn-action">Ապրանքը ուղարկել պահեստ</button>
                         </g:form>
                     </div>
                 </div>

@@ -58,7 +58,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Ավելացնել ապրանքներ պահեստից</h1>
+            <h1>Ապրանքների ցուցակ</h1>
         </div>
 
         <!-- Table of Market Products -->
@@ -72,7 +72,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 <g:each in="${marketProducts}" var="marketProduct">
                     <tr>
                         <td>${marketProduct.product.productName}</td>
@@ -80,18 +79,15 @@
                         <td>${marketProduct.product.expirationDate ?: '-'}</td> <!-- Display expiration date or '-' if not available -->
                         <td>
                             <!-- Link to view details of the market product -->
-
                 <g:form controller="market" action="removeProduct">
                     <input type="hidden" name="marketProductId" value="${marketProduct.id}">
                     <button type="submit" class="btn">Վաճառել</button>
                 </g:form>
-
                         </td>
                     </tr>
                 </g:each>
             </tbody>
         </table>
-
         <!-- Actions -->
         <div class="actions">
             <!-- Create New Market Product link with redirection to market/index -->

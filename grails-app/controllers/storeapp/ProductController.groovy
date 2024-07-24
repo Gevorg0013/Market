@@ -21,9 +21,9 @@ class ProductController {
 
         // Check if expiration date is empty or null
         if (params.noExpirationDate == 'true') {
-            product.expirationDate = null // Set expirationDate to null for no expiration
+            product.expirationDate = null
         } else if (!params.expirationDate) {
-            product.expirationDate = null // Ensure expirationDate is null if not provided
+            product.expirationDate = null
         }
 
         if (product.save(flush: true)) {

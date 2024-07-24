@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Product</title>
+    <title>Ավելացնել ապրանք</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -84,8 +84,8 @@
       <div class="date-label">
                  <label for="expirationDate">ապրանքի վերջնաժամկետ:</label>
                  <g:datePicker name="expirationDate" value="${product?.expirationDate ?: ''}"/>
+
                  <input type="checkbox" id="noExpirationDate" name="noExpirationDate" value="true">
-                 <label for="noExpirationDate">Չկան վերջնաժամկետ</label>
              </div>
         <g:submitButton name="create" value="Պահպանել"/>
     </g:form>

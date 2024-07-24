@@ -60,14 +60,13 @@
                     <td>
                         <g:form controller="market" action="addProduct">
                             <input type="hidden" name="warehouseProductId" value="${warehouseProduct.id}">
-                            <button type="submit" class="btn">Add to Market</button>
+                            <button type="submit" class="btn">Ուղարկել խանութ</button>
                         </g:form>
                     </td>
                 </tr>
             </g:each>
         </tbody>
     </table>
-
     <p><a href="${createLink(action: 'view')}">Գնալ դեպի խանութի վաճառքի էջ</a></p>
 </body>
 </html>

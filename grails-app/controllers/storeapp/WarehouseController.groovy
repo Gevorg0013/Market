@@ -1,20 +1,20 @@
 // grails-app/controllers/storeapp/WarehouseController.groovy
 
 package storeapp
+
 import grails.gorm.transactions.Transactional
 import java.time.LocalDate
 
 import storeapp.Warehouse
 import storeapp.Product
 import storeapp.WarehouseProduct
+
 //import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 class WarehouseController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
-    def warehouseService
 
     def index() {
         def warehouses = Warehouse.list()
@@ -23,19 +23,15 @@ class WarehouseController {
         [warehouse: warehouse, availableProducts: availableProducts]
     }
 
-
-
     @Transactional
     def addProduct() {
         try {
-            // Validate required parameters
             if (!params.productId || !params.quantity.toInteger() || params.quantity.toInteger() <= 0) {
                 log.error("Missing or invalid productId or quantity")
-                render(view: "/warehouse/error") // Handle error appropriately
+                render(view: "/warehouse/error")
                 return
             }
 
-            // Retrieve product from params or create a new one
             def product = Product.get(params.productId as Long)
             if (!product) {
                 product = new Product(
@@ -47,16 +43,13 @@ class WarehouseController {
                 )
             }
 
-            // Save product
             product.save(flush: true)
 
-            // Create and save warehouse (if needed)
-            def warehouse = Warehouse.findByName('Main Warehouse') ?: new Warehouse(code: '1',name: 'Main Warehouse')
+            def warehouse = Warehouse.findByName('Main Warehouse') ?: new Warehouse(code: '1', name: 'Main Warehouse')
             warehouse.save(flush: true)
 
-            // Create and save warehouse product
             def warehouseProduct = new WarehouseProduct(warehouse: warehouse, product: product)
-            warehouseProduct.quantity += params.quantity.toInteger()  // Increase quantity
+            warehouseProduct.quantity += params.quantity.toInteger()
             def save = warehouseProduct.save(flush: true)
             println("save013: " + save);
             if (save) {
@@ -68,13 +61,8 @@ class WarehouseController {
         } catch (Exception e) {
             log.error("Error adding product: ${e.message}", e)
             render(view: "/warehouse/error")
-            // Optionally re-throw or handle the exception as needed
         }
     }
-
-
-
-
 
     def removeProductFromWarehouse(Long warehouseProductId) {
         def warehouseProduct = WarehouseProduct.get(warehouseProductId)
@@ -92,24 +80,7 @@ class WarehouseController {
         [products: products]
     }
 
-    def save(Warehouse warehouse, Long[] productIds, Integer[] quantities) {
-        // Implementation for creating new warehouses if needed
-    }
-
-    def edit(Long id) {
-        // Implementation for editing warehouses if needed
-    }
-
-    def update(Long id) {
-        // Implementation for updating warehouses if needed
-    }
-
-    def delete(Long id) {
-        // Implementation for deleting warehouses if needed
-    }
-
     def showWarehouseProduct() {
-        // Example: Fetching the first warehouse product (you might need additional logic here)
         def warehouseProduct = WarehouseProduct.first()
 
         if (!warehouseProduct) {
@@ -117,11 +88,7 @@ class WarehouseController {
             render(view: "/warehouse/emptyWarehouseError")
             return
         }
-
-        // Fetch all products in the warehouse associated with this warehouse product
         def warehouseProducts = WarehouseProduct.findAllByWarehouse(warehouseProduct.warehouse)
-
-        // Return the warehouse product and associated products to the view
         [warehouseProduct: warehouseProduct, warehouseProducts: warehouseProducts]
     }
 
