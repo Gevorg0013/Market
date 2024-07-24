@@ -14,6 +14,9 @@ it should be possible to sell the product, return it to the warehouse, if the pr
 
 
 ---------------------------Solution--------------------------------
+
+
+
 i've implemented this app via Grovy language, as a main framework i used grails, also used some springand java libraries.
 for database i used H2, in memory database.
 for view part i used GSP framework
