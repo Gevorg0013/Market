@@ -51,4 +51,17 @@ Below you can see phots and demo video
 3) Product list page, we have products with empty expiration date
 ![list](https://github.com/user-attachments/assets/0059f781-608b-4d29-9ae8-6912a1ed2ebd)
 
+4) Add product page, we can select product and mention quantity
+![apranq](https://github.com/user-attachments/assets/4c306724-5c6c-4fb5-b836-f1e4dbaa25bf)
+
+5) wareHouse list page, from this page we can remove products and we can redirect to market page and add those products there
+![phestlist](https://github.com/user-attachments/assets/4200bdc3-089c-47b1-a043-ed878a8965cd)
+
+6) Add product to market page, from this page we can select and move product to market(last page)
+![13](https://github.com/user-attachments/assets/066f92fe-bbb3-4179-8709-e8d1062f30a8)
+
+7) Market page,Market page, this page is responsible for selling products, if product's expiration date> todays date, we cant sale product, should move it to wareHouse
+![78](https://github.com/user-attachments/assets/76a23d81-2b7f-4af5-b2c0-cd58123d71e1)
+
+
 
