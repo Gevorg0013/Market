@@ -1,5 +1,8 @@
 ---
 grails:
+    transaction:
+        management:
+            proxies: true
     profile: web
     codegen:
         defaultPackage: storeapp
