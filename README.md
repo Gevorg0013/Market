@@ -36,9 +36,19 @@ from this side we can sale added product, if this page is empty we should redire
 If expiration date is greater than this date we cant sale product, and move it to wareHouse
 Below you can see phots and demo video
 
+
+
+
+
+
+
 1) H2 db where we save product and because we don't mention expiration date it's empty
 ![H2](https://github.com/user-attachments/assets/209a8bc3-b525-4345-960d-b61595ca1846)
 
 2) Create product,next to expiration date we have checkbox, if we click on that, in that case product doesn't have expiration date
 ![payt](https://github.com/user-attachments/assets/45ec7665-7e22-4e4d-9782-b1d2bd985131)
+
+3) Product list page, we have products with empty expiration date
+![list](https://github.com/user-attachments/assets/0059f781-608b-4d29-9ae8-6912a1ed2ebd)
+
 
