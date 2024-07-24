@@ -1,7 +1,7 @@
 task description: 
 
 Implement a store application with the Grails framework
-with the following parts
+with the following parts.       
 Product. should have a code, name, price, production date, expiration date. if the product does not have an expiration date, it should remain empty. it should be possible to create a product, edit it, remove it if it is not used anywhere.
 
 Warehouse. which should have the following fields
