@@ -71,9 +71,12 @@ Below you can see phots and demo video
 [Uploading ed91ae39-06ed-4a0e-b084-23421b2b466f.webm…]()
 
 
- Grails Version: 5.3.6
-| JVM Version: 1.8.0_412
-for running application i've used  grails run-app
+ Grails Version: 5.3.6.
+
+  JVM Version: 1.8.0_412.
+
+for running application i've used  grails run-app.
+
 for db java -jar h2-1.4.200.jar
 
 
