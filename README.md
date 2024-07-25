@@ -66,5 +66,10 @@ Below you can see phots and demo video
 7) Market page,Market page, this page is responsible for selling products, if product's expiration date> todays date, we cant sale product, should move it to wareHouse
 ![78](https://github.com/user-attachments/assets/76a23d81-2b7f-4af5-b2c0-cd58123d71e1)
 
+8) if the product has expired sale button will be disable, so we can't sale those product, then we can collect them remove from market db and move to the wareHouse
+9) demo video
+[Uploading ed91ae39-06ed-4a0e-b084-23421b2b466f.webm…]()
+
+
 
 
