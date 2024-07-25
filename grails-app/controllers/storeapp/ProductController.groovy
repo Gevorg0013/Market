@@ -65,4 +65,39 @@ class ProductController {
         }
         redirect action: "index"
     }
+
+    def moveExpiredProductsToWarehouse() {
+        try {
+            def expiredProducts = MarketProduct.withCriteria {
+                product {
+                    lt('expirationDate', new Date())
+                }
+            }
+
+            expiredProducts.each { marketProduct ->
+                // Simulate moving the product to the warehouse
+                def warehouseProduct = new WarehouseProduct(
+                        productName: marketProduct.product.productName,
+                        quantity: marketProduct.quantity,
+                        expirationDate: marketProduct.product.expirationDate
+                )
+
+                if (warehouseProduct.save()) {
+                    // Optionally delete the product from the market
+                    marketProduct.delete(flush: true)
+                    println("Moved expired product to warehouse: ${warehouseProduct.productName}")
+                } else {
+                    // Handle save failure if needed
+                    println("Failed to move product to warehouse: ${marketProduct.product.productName}")
+                    throw new RuntimeException("Failed to move product to warehouse.")
+                }
+            }
+
+            // Respond with success message
+            render(status: 200, text: "Expired products moved to warehouse successfully.")
+        } catch (Exception e) {
+            // Respond with error message
+            render(status: 500, text: "Failed to move expired products to warehouse: ${e.message}")
+        }
+    }
 }

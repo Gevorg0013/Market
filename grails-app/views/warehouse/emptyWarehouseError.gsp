@@ -48,7 +48,7 @@
     <div class="container">
         <h1>Պահեստը դատարկ է</h1>
 <p>Գնալ ներքեվի լինկով ստեղծել առնվազն մեկ ապրանք որպեսզի առնվազն մեկ պահեստ հասանելի լինի:</p>
-        <a href="${createLink(uri: '/warehouse/index')}" class="btn-back">Ավելացնել նոր ապրանք պահեստում</a>
+        <a href="${createLink(uri: '/warehouse/index')}" class="btn-back">Ստեղծել պահեստ եվ ավելացնել ապրանք</a>
     </div>
 </body>
 </html>

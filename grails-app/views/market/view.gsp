@@ -1,11 +1,9 @@
-<!-- grails-app/views/marketProduct/index.gsp -->
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Market Products</title>
     <style>
-    
         body {
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
@@ -49,9 +47,14 @@
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            margin-right: 10px;
         }
         .btn:hover {
             background-color: #0056b3;
+        }
+        .btn-sale[disabled] {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -72,30 +75,86 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Loop through each market product -->
                 <g:each in="${marketProducts}" var="marketProduct">
                     <tr>
                         <td>${marketProduct.product.productName}</td>
                         <td>${marketProduct.quantity}</td>
                         <td>${marketProduct.product.expirationDate ?: '-'}</td> <!-- Display expiration date or '-' if not available -->
                         <td>
-                            <!-- Link to view details of the market product -->
-                <g:form controller="market" action="removeProduct">
-                    <input type="hidden" name="marketProductId" value="${marketProduct.id}">
-                    <button type="submit" class="btn">Վաճառել</button>
-                </g:form>
+                            <!-- Form for removing a product -->
+                            <g:form controller="market" action="removeProduct">
+                                <input type="hidden" name="marketProductId" value="${marketProduct.id}">
+                                <button type="submit" class="btn btn-sale">Վաճառել</button>
+                            </g:form>
                         </td>
                     </tr>
                 </g:each>
             </tbody>
         </table>
+
         <!-- Actions -->
         <div class="actions">
-            <!-- Create New Market Product link with redirection to market/index -->
+            <!-- Link to add a new market product -->
             <g:link controller="market" action="index" class="btn">Ավելացնել նոր ապրանք</g:link>
 
-            <!-- Link back to Warehouse Index -->
-            <g:link controller="warehouse" action="index" class="btn">Գնալ պահեստ</g:link>
+            <!-- Button to move expired products -->
+            <button id="moveExpiredProductsBtn" class="btn btn-danger">Տեղափոխել ժամկետանց ապրանքներ պահեստ</button>
+
+            <!-- Link to go back to warehouse index -->
+            <g:link controller="warehouse" action="showWarehouseProduct" class="btn">Գնալ պահեստ</g:link>
         </div>
     </div>
+
+    <!-- JavaScript to disable sale button based on expiration date -->
+    <script>
+        // Select all buttons with class 'btn-sale'
+        var saleButtons = document.querySelectorAll('.btn-sale');
+
+        // Iterate through each button
+        saleButtons.forEach(function(button) {
+            // Find the corresponding expiration date in the same row
+            var expirationDateCell = button.closest('tr').querySelector('td:nth-child(3)');
+            var expirationDateText = expirationDateCell.textContent.trim();
+
+            // Convert expiration date text to Date object
+            if (expirationDateText !== '-') {
+                var expirationDate = new Date(expirationDateText);
+
+                // Get today's date
+                var today = new Date();
+                today.setHours(0, 0, 0, 0); // Set time to start of day for accurate comparison
+
+                // Compare expiration date with today's date
+                if (expirationDate < today) {
+                    button.disabled = true; // Disable the button if expiration date is in the past
+                }
+            }
+        });
+    </script>
+
+    <!-- JavaScript to move expired products -->
+    <script>
+           document.getElementById('moveExpiredProductsBtn').addEventListener('click', function() {
+               // Confirm before proceeding
+               if (confirm('Are you sure you want to move expired products to warehouse?')) {
+                   // Make an AJAX call to execute server-side logic
+                   var xhr = new XMLHttpRequest();
+                   xhr.open('POST', '/product/moveExpiredProductsToWarehouse');
+                   xhr.setRequestHeader('Content-Type', 'application/json');
+                   xhr.onload = function() {
+                       if (xhr.status === 200) {
+                           alert('Expired products moved to warehouse successfully.');
+                           // Optionally update UI or redirect
+                           window.location.reload(); // Example: Reload the page
+                       } else {
+                           alert('Failed to move expired products to warehouse.');
+                       }
+                   };
+                   xhr.send();
+               }
+           });
+       </script>
+
 </body>
 </html>
