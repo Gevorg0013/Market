@@ -67,6 +67,8 @@ Below you can see phots and demo video
 ![78](https://github.com/user-attachments/assets/76a23d81-2b7f-4af5-b2c0-cd58123d71e1)
 
 8) if the product has expired sale button will be disable, so we can't sale those product, then we can collect them remove from market db and move to the wareHouse
+![432](https://github.com/user-attachments/assets/20e80adb-13db-43ff-9635-c40f293658ff)
+
 9) demo video
 [Uploading ed91ae39-06ed-4a0e-b084-23421b2b466f.webm…]()
 
